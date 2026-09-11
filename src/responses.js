@@ -13,9 +13,17 @@ const getIndex = (request, response) => {
 };
 
 const getCats = (request, response) => {
-  const cat = {name: 'Captain Peanut-Butter', age:7};
+  const cat = { name: 'Rhyleigh', age: 20};
 
-  respond(request, response, JSON.stringify(cat), 'application/json');
+  if (request.acceptedTypes[0] === 'application/xml') {
+    let responseXML = '<response>';
+    responseXML += `<name>${cat.name}</name>`;
+    responseXML += `<age>${cat.age}</age>`;
+    responseXML += `</response>`;
+    return respond(request, response, responseXML, 'application/xml');
+  }
+
+  return respond(request, response, JSON.stringify(cat), 'application/json')
 }
 
 module.exports = {
